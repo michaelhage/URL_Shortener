@@ -27,7 +27,7 @@ def create_connection(path):
 def execute_insert_query(connection, query):
     
     # create error in case of abort
-    error = 0
+    # error = 0
     
     # create cursor to execute query command from connected db
     cursor = connection.cursor()
@@ -41,9 +41,11 @@ def execute_insert_query(connection, query):
         print(f"The error '{e}' has occured")
         
         # if abort happens, then change to error code
-        error = 1
-    
-    return error
+        # error = 1
+        # print(error)
+        # return error
+
+    # return error
 
 def execute_read_query(connection, query):
     
@@ -51,7 +53,7 @@ def execute_read_query(connection, query):
     cursor = connection.cursor()
     result = None
     
-    error = 0
+    # error = 0
     
     try:
         
@@ -64,4 +66,4 @@ def execute_read_query(connection, query):
     
     except Error as e:
         print(f"The error '{e}' has occured")
-        error = 2
+        # error = 2
