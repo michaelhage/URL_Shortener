@@ -24,30 +24,31 @@ def create_connection(path):
     return connection
 
 # execute a SQL query to the connection db
-def execute_insert_query(connection, query):
+def execute_insert_query(connection, query, tup):
     
     # create error in case of abort
-    # error = 0
+    error = 0
     
     # create cursor to execute query command from connected db
     cursor = connection.cursor()
     
     # execute query
     try:
-        cursor.execute(query)
+        cursor.execute(query, tup)
         connection.commit()
         print("Query executed successfully")
     except Error as e:
         print(f"The error '{e}' has occured")
         
         # if abort happens, then change to error code
-        # error = 1
+        error = 1
         # print(error)
-        # return error
+    
+    return error
 
     # return error
 
-def execute_read_query(connection, query):
+def execute_read_query(connection, query, tup):
     
     # create cursor and result
     cursor = connection.cursor()
@@ -58,7 +59,7 @@ def execute_read_query(connection, query):
     try:
         
         # execute query
-        cursor.execute(query)
+        cursor.execute(query, tup)
        
         # retrieve result information
         result = cursor.fetchall()

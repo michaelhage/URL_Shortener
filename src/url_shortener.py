@@ -7,39 +7,44 @@ Created on Sat Oct 31 21:19:20 2020
 
 import sql
 
+import sqlite3
+from sqlite3 import Error
+
 path = r'url.db'
 
 def retrieve_url(short_id):
     
     # create sql query and fit the variables into it
-    query = f"""
+    query = """
         SELECT url FROM url_db
-        WHERE short_id = {short_id};
+        WHERE short_id = ?;
     """
     
     # create sql db connection
     connection = sql.create_connection(path)
     
     # execute query to db
-    urls = sql.execute_read_query(connection, query)
+    urls = sql.execute_read_query(connection, query, [short_id])
     
     return urls
 
 # create short_id within db by using 
 def create_short_id(short_id, url):
     
-    query = f""" 
+    query = """ 
         INSERT INTO
             url_db (short_id, url)
         VALUES
-            ('{short_id}', '{url}');
+            (?, ?);
         """
     
     connection = sql.create_connection(path)
     
     # execute 
-    sql.execute_insert_query(connection, query)
-  
+    error = sql.execute_insert_query(connection, query, [short_id, url])
+    
+    return error
+    
 # urls = retrieve_url('Ms54Rt')
 
 

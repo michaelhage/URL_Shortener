@@ -9,7 +9,8 @@ import tkinter as tk
 import url_shortener as ush
 import string
 import random
-  
+import validators
+
 def print_text(text):
     
     for t in text:
@@ -19,12 +20,27 @@ def print_text(text):
 
 def url_check(url, short_id):
     
-    N = 6
+    err_lbl.config(text="")
     
+    N = 6
+
     if len(short_id) == 0:
         short_id = "".join( random.choices(string.ascii_uppercase + string.digits + string.ascii_lowercase, k=N) )
-
-    ush.create_short_id(short_id, url)
+    
+    # check if url provided is a valid url
+    if not(validators.url(url)):
+        err_lbl.config(text="URL input is not a valid URL\n")
+    elif not(short_id.isalnum()):
+        err_lbl.config(text="Optional ID should only be alpha numeric only\n")
+    else:
+        error = ush.create_short_id(short_id, url)
+    
+    
+    if error == 1:
+        err_lbl.config(text="URL ID given is the same as one in the registry\n")
+        
+    url_ent.delete(0, tk.END)
+    opt_url_ent.delete(0, tk.END)
     
 # initialize window properties
 root = tk.Tk()
@@ -73,5 +89,10 @@ url_btn = tk.Button(root,
                     ))
 
 url_btn.pack()
+
+err_lbl = tk.Label(root,
+                     text="")
+
+err_lbl.pack()
 
 root.mainloop()
