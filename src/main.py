@@ -40,7 +40,7 @@ def url_check(url, short_id):
         err_lbl.config(text="URL ID given is the same as one in the registry\n")
         
     url_ent.delete(0, tk.END)
-    opt_url_ent.delete(0, tk.END)
+    opt_url_ent.delete(0, tk.END)    
     
 # initialize window properties
 root = tk.Tk()

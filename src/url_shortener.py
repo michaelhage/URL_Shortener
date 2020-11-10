@@ -24,9 +24,9 @@ def retrieve_url(short_id):
     connection = sql.create_connection(path)
     
     # execute query to db
-    urls = sql.execute_read_query(connection, query, [short_id])
+    url = sql.execute_read_query(connection, query, [short_id])
     
-    return urls
+    return url
 
 # create short_id within db by using 
 def create_short_id(short_id, url):

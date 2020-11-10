@@ -36,6 +36,7 @@ def execute_insert_query(connection, query, tup):
     try:
         cursor.execute(query, tup)
         connection.commit()
+        error = 2
         print("Query executed successfully")
     except Error as e:
         print(f"The error '{e}' has occured")
